@@ -1,5 +1,5 @@
 /* Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Commissioner:wght@300;400&family=Montserrat:wght@400;500&family=Noto+Sans+JP:wght@100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Commissioner:wght@300;400&family=Montserrat:wght@300;400;500&family=Noto+Sans+JP:wght@100&display=swap');
 
 /* General */
 *{
@@ -12,15 +12,26 @@
 	text-decoration: none;
 }
 
+body{ overflow-x: hidden }
+
 h1{
 	font-size: 40px;
 	font-weight: 400;
 	text-align: center;
 }
 
+.mark, .mark-2{
+	color: #673AB7;
+	font-family: inherit;
+	font-size: inherit;
+	font-weight: 500;
+}
+
+.mark-2{ font-style: italic; }
+
 /* Tooltips */
-[data-tooltip-dn]{ display: relative; }
-[data-tooltip-dn] .tooltip{
+[data-tooltip-dn], [data-tooltip-up]{ display: relative; }
+[data-tooltip-dn] .tooltip, [data-tooltip-up] .tooltip{
 	display: block;
 	position: absolute;
 	left: 50%;
@@ -38,7 +49,11 @@ h1{
 	pointer-events: none;
 	opacity: 0;
 }
-[data-tooltip-dn] .tooltip::before{
+[data-tooltip-up] .tooltip{
+	top: -25px;
+	bottom: auto;
+}
+[data-tooltip-dn] .tooltip::before, [data-tooltip-up] .tooltip::after{
 	content: '';
 	position: absolute;
 	top: -10px;
@@ -49,9 +64,20 @@ h1{
 	border-bottom-color: #eee;
 	transform: translateX(-50%);
 }
+[data-tooltip-up] .tooltip::after{
+	top: auto;
+	bottom: -10px;
+	border-bottom-color: transparent;
+	border-top-color: #eee;
+}
 
 [data-tooltip-dn]:hover .tooltip{
 	transform: translate(-50%, 8px);
+	opacity: 1;
+}
+
+[data-tooltip-up]:hover .tooltip{
+	transform: translate(-50%, -8px);
 	opacity: 1;
 }
 
@@ -66,7 +92,8 @@ h1{
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
-	color: #fff;
+	color: #eee;
+	overflow: hidden;
 }
 
 .landing-sec .bg{
@@ -92,8 +119,8 @@ h1{
 
 @keyframes arrow-down{
 	0%{ opacity: 0; bottom: 60px }
-	30%{ opacity: 0.6; bottom: 50px }
-	100%{ opacity: 0.6; bottom: 50px }
+	30%{ opacity: 1; bottom: 50px }
+	100%{ opacity: 1; bottom: 50px }
 }
 
 /* Name Banner */
@@ -114,34 +141,36 @@ h1{
 	box-shadow: 0 3px 10px 0 rgba(0,0,0,0.45);
 }
 
-.links{
+.landing-sec .links{
 	display: block;
 	position: relative;
-	left: 180px;
+	left: 120px;
 	width: fit-content;
 }
 
-.links .link{
+.landing-sec .links .link,
+.footer-sec .links .link{
 	display: inline-block;
 	position: relative;
 	width: 35px;
 	height: 35px;
 	margin: 40px 20px;
 	padding: 5px;
-	color: white;
+	color: #eee;
 	background-color: #333;
 	border-radius: 100%;
 	box-shadow: 0 3px 10px 0 rgba(0,0,0,0.45);
 }
 
-.links .link i{
+.landing-sec .links .link i, 
+.footer-sec .links .link i{
 	position: relative;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 }
 
-.links .link::before{
+.landing-sec .links .link::before{
 	content: '';
 	display: block;
 	position: absolute;
@@ -156,21 +185,22 @@ h1{
 }
 
 /* Avatar */
-.avatar{
+.landing-sec .avatar{
 	display: block;
 	position: relative;
 	top: -5%;
 	right: 0;
-	height: 50%;
+	height: 350px;
 	margin: 0 auto;
 	transform: translateX(20%);
+	opacity: 0;
 }
 
-.avatar img{
+.landing-sec .avatar img{
 	height: 100%;
 }
 
-.avatar aside{
+.landing-sec .avatar aside{
 	display: inline-block;
 	position: absolute;
 	left: 50%;
@@ -179,7 +209,7 @@ h1{
 	transform: translateX(-50%);
 }
 
-.avatar .msg{
+.landing-sec .avatar .msg{
 	display: block;
 	position: absolute;
 	top: calc(45% + 5px);
@@ -196,12 +226,12 @@ h1{
 	box-shadow: 0 3px 10px 0 rgba(0,0,0,0.45);
 }
 
-.avatar .msg span{
+.landing-sec .avatar .msg span{
 	font-family: inherit;
 	font-size: inherit;
 }
 
-.avatar .msg::after{
+.landing-sec .avatar .msg::after{
 	content: '';
 	position: absolute;
 	top: -19px;
@@ -210,4 +240,172 @@ h1{
 	height: 0;
 	border: 10px solid transparent;
 	border-bottom-color: #eee;
+}
+
+/* About section */
+.about-sec{
+	padding: 100px 15%;
+}
+
+.about-sec h1, .projects-sec h1{
+	margin: 0 0 5% 0;
+	font-family: 'Commissioner';
+}
+
+.about-sec p{
+	font-family: 'Montserrat';
+	font-size: 17px;
+	font-weight: 300;
+	line-height: 1.8;
+	word-spacing: 1;
+	text-align: justify;
+}
+
+/* Projects section */
+.projects-sec{
+	padding: 100px 15%;
+	background-color: #e5f0f5;
+}
+
+.projects{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	align-items: center;
+	flex-wrap: wrap;
+}
+
+.project{
+	margin: 30px 0;
+	padding-bottom: 20px;
+	background-color: #fff;
+	border-radius: 5px;
+	box-shadow: 0 3px 10px 0 rgba(0,0,0,0.25);
+	overflow: hidden;
+}
+
+.project .image{
+	position: relative;
+	width: 250px;
+	height: calc(250px * 3/4);
+	overflow: hidden;
+	cursor: pointer;
+	border-bottom: 1px solid #ddd;
+}
+
+.project .image img{
+	display: block;
+	position: absolute;
+	left: 50%;
+	height: 100%;
+	transform: translateX(-50%);
+	transition: transform 0.5s;
+	
+}
+
+.project .image:hover img{
+	transform: translateX(-50%) scale(1.1);
+}
+
+.project h2, h3{
+	padding: 20px 20px 0 20px;
+	font-family: 'Montserrat';
+}
+
+.project .name{
+	font-weight: bold;
+}
+
+.project .notes, .project .year{
+	font-size: 14px;
+	color: #777;
+	line-height: 1.4;
+}
+
+.project .year{
+	color: green;
+	text-align: center;
+	font-weight: 200;
+}
+
+/* Footer section */
+.footer-sec{
+	padding: 80px 15%;
+	font-family: 'Commissioner';
+	font-size: 18px;
+	font-weight: 200;
+	color: #bbb;
+	background-color: #0d2c73;
+}
+
+.footer-sec p{
+	line-height: 1.5;
+	text-align: center;
+	font-style: italic;
+}
+
+.footer-sec h2{
+	margin: 40px 0 0 0;
+	text-align: center;
+	font-size: 24px;
+	font-style: normal;
+}
+
+.footer-sec .links{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.footer-sec .links .link{
+	margin: 20px 5px;
+	background-color: transparent;
+	box-shadow: none;
+	font-size: 18px;
+}
+
+/* Responsiveness */
+@media screen and (max-width: 900px){
+
+	.landing-sec .avatar{
+		margin: 0 10% 0 0;
+	}
+
+	.landing-sec .title{
+		padding-left: 50px;
+	}
+
+	.landing-sec .links{
+		left: 5%;
+	}
+
+	.landing-sec .links .link{
+		margin: 40px 15px
+	}
+
+}
+
+@media screen and (max-width: 760px){
+
+	.landing-sec .avatar{
+		display: none;
+	}
+
+	.landing-sec .content{
+		width: 100%;
+	}
+
+	.landing-sec .title{
+		display: block;
+		width: 100%;
+		padding: 20px 0 30px 0;
+		border-radius: 0;
+	}
+
+	.landing-sec .links{
+		position: relative;
+		left: 50%;
+		transform: translateX(-50%);
+	}
+
 }
